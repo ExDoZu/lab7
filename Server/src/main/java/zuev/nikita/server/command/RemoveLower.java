@@ -19,7 +19,6 @@ public class RemoveLower extends Command {
     public synchronized String execute(String arg,  Organization organization, AuthorizationData authorizationData){
         int oldSize = collection.size();
         collection.entrySet().removeIf(x -> (x.getValue().compareTo(organization) < 0 && x.getValue().getAuthor().equals(authorizationData.getLogin())));
-        //Hashtable<String, Organization> newCollection = new Hashtable<>(collection.entrySet().stream().filter(x -> x.getValue().compareTo(organization) >= 0).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         if (oldSize == collection.size()) {
             return "Нет элемента меньше заданного.";
         } else {

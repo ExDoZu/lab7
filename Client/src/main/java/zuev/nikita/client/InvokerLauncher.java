@@ -16,15 +16,14 @@ import java.util.Scanner;
 public class InvokerLauncher {
     /**
      * Launches invoker
-     *
      */
     public void launch(AuthorizationData authorizationData, SocketIO socketIO) throws IOException, ClassNotFoundException {
         Scanner inputScanner = new Scanner(System.in);
-        Invoker invoker = new Invoker(authorizationData,socketIO);
+        Invoker invoker = new Invoker(authorizationData, socketIO);
         invoker.register("execute_script", new ExecuteScript(authorizationData, socketIO, invoker.getRegisteredCommands()));
         invoker.register("help", new Help(authorizationData, socketIO, invoker.getRegisteredCommands()));
         invoker.register("insert", new Insert(authorizationData, socketIO));
-        invoker.register("remove_lower", new RemoveLower(authorizationData,socketIO));
+        invoker.register("remove_lower", new RemoveLower(authorizationData, socketIO));
         invoker.register("update", new Update(authorizationData, socketIO));
         String[] fullCommand;
         //'while' statement completes after inputting  the 'exit' command
@@ -33,20 +32,20 @@ public class InvokerLauncher {
         while (exitFlag) {
             fullCommand = inputScanner.nextLine().trim().split("\\s+", 2);
             if (!fullCommand[0].equals(""))
-                while (true) {
-                    try {
-                        invokerResponse = invoker.invoke(fullCommand);
-                        if (invokerResponse.equals("exit")) {
-                            exitFlag = false;
-                            break;
-                        }
-                        System.out.println(invokerResponse);
-                        break;
-                    } catch (NumberFormatException e) {
-                        System.out.println("ID должен быть целым числом.");
-                        break;
+
+                try {
+                    invokerResponse = invoker.invoke(fullCommand);
+                    if (invokerResponse.equals("exit")) {
+                        exitFlag = false;
+
                     }
+                    System.out.println(invokerResponse);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("ID должен быть целым числом.");
+
                 }
+
         }
     }
 }

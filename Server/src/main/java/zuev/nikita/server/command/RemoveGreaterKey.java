@@ -23,7 +23,6 @@ public class RemoveGreaterKey extends Command {
         if (arg == null) return "Не был указан Ключ.";
         int oldSize = collection.size();
         collection.entrySet().removeIf(x -> (x.getKey().compareTo(arg) > 0 && x.getValue().getAuthor().equals(authorizationData.getLogin())));
-        //Hashtable<String, Organization> newCollection = new Hashtable<>(collection.entrySet().stream().filter(x -> x.getKey().compareTo(arg) <= 0).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         if (oldSize == collection.size()) {
             return "Нет элементов с ключом больше заданного.";
         } else {

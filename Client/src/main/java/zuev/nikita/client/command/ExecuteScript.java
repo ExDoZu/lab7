@@ -46,6 +46,7 @@ public class ExecuteScript extends Command {
                                     if (invokerResponse.equals("exit")) {
                                         break;
                                     }
+                                    System.out.println(invokerResponse);
                                 } catch (NumberFormatException e) {
                                     System.out.println("ID должен быть целым числом.\n" +
                                             "Команда пропущена.");

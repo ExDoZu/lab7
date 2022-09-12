@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * Base class of Server. Prepares port and handles connections via Selector
+ * Base class of Server. Prepares port and handles connections
  */
 public class Server {
     private final Logger log = LoggerFactory.getLogger(ServerMain.class);
@@ -152,9 +152,12 @@ public class Server {
                 }
             }
         } catch (IOException e) {
+            serversCommandsInvoker.invoke(new String[]{"exit"});
             throw new RuntimeException(e);
+
         } catch (NoSuchElementException e) {
             serverIsOn = false;
+            serversCommandsInvoker.invoke(new String[]{"exit"});
         }
         return serverIsOn;
     }
